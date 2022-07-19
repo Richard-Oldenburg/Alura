@@ -1,30 +1,29 @@
-const pessoa = {
-  nome: "Ana",
-  email: "a@email.com",
-  imprimeNome: function(){
-    console.log(`${pessoa.nome}`)
+class Cliente {
+  constructor(nome, email, cpf, saldo){
+    this.nome = nome
+    this.email = email
+    this.cpf = cpf
+    this.saldo = saldo
+  }
+ 
+  depositar(valor){
+    this.saldo += valor
+  }
+ 
+  exibirSaldo(){
+    console.log(this.saldo)
   }
  }
- 
- pessoa.imprimeNome() //Ana
 
-
- function imprimeNomeEmail(tipoCliente){
-  console.log(`${tipoCliente} - nome: ${this.nome}, email: ${this.email}`)
- }
+ class ClientePoupanca extends Cliente {
+  constructor(nome, email, cpf, saldo, saldoPoupanca){
+    super(nome, email, cpf, saldo)
+    this.saldoPoupanca = saldoPoupanca
+  }
  
- const cliente1 = {
-  nome: "Carlos",
-  email: "c@email.com"
- }
- 
- const cliente2 = {
-  nome: "Fred",
-  email: "f@email.com"
+  depositarPoupanca(valor){
+    this.saldoPoupanca += valor
+  }
  }
 
- imprimeNomeEmail.call(cliente1, "cliente especial")
-// cliente especial - nome: Carlos, email: c@email.com
-
-imprimeNomeEmail.call(cliente2, "cliente estudante")
-// cliente estudante - nome: Fred, email: f@email.com
+ 
