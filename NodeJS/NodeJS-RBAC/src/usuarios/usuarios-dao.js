@@ -10,13 +10,14 @@ module.exports = {
   async adiciona (usuario) {
     try {
       await dbRun(
-        `INSERT INTO usuarios (nome, email, senhaHash, emailVerificado) 
-        VALUES (?, ?, ?, ?)`,
+        `INSERT INTO usuarios (nome, email, senhaHash, emailVerificado, cargo) 
+        VALUES (?, ?, ?, ?, ?)`,
         [
           usuario.nome,
           usuario.email,
           usuario.senhaHash,
-          usuario.emailVerificado
+          usuario.emailVerificado,
+          usuario.cargo
         ]
       )
     } catch (erro) {
@@ -56,6 +57,17 @@ module.exports = {
       ])
     } catch (erro) {
       throw new InternalServerError('Erro ao modificar a verficação de e-mail!')
+    }
+  },
+
+  async atualizarSenha (senha, id) {
+    try {
+      await dbRun('UPDATE usuarios SET senhaHash = ? WHERE id = ?', [
+        senha,
+        id
+      ])
+    } catch (erro) {
+      throw new InternalServerError('Erro ao tentar atualizar a senha do usuário!')
     }
   },
 
